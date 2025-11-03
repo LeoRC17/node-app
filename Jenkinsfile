@@ -1,24 +1,35 @@
 pipeline {
-  agent {
-    docker {
-      image 'node:20'
+    agent any
+
+    tools {
+        // This must match the name you configured in "Global Tool Configuration"
+        nodejs "Node 18"
     }
-  }
-  stages {
-    stage('Install') {
-      steps {
-        sh 'npm install'
-      }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Install') {
+            steps {
+                sh 'npm install'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                sh 'npm test'
+            }
+        }
+
+        stage('Run') {
+            steps {
+                sh 'node index.js'
+            }
+        }
     }
-    stage('Test') {
-      steps {
-        sh 'npm test'
-      }
-    }
-    stage('Run') {
-      steps {
-        sh 'node index.js'
-      }
-    }
-  }
 }
+
