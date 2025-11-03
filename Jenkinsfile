@@ -24,12 +24,6 @@ pipeline {
                 sh 'npm test'
             }
         }
-
-        stage('Run') {
-            steps {
-                sh 'node index.js'
-            }
-        }
     }
 }
 
